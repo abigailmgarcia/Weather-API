@@ -1,13 +1,29 @@
+document.addEventListener("DOMContentLoaded", function(){
 const apiKey = "9968025b614fb3b8cb40954de8d356b1";
 
 // Global Variables
-const sumbitButton = document.getElementById('sumbit-button');
+var sumbitButton = document.getElementById('sumbitBtn');
+console.log("Button Element:", document.getElementById('submitBtn'));
+
+
 const getCoordinates = function() {
     const searchCities = document.querySelector('#search-bar').value;
     fetch(`https://api.openweathermap.org/data/2.5/weather?q=${searchCities}&appid=${apiKey}`)
     .then(function (response) {
-        console.log(response.JSON);
+       return response.json();
+    })
+    .then(function (data) {
+        console.log(data);
+        console.log(data.coord.lat, data.coord.lon);
+        const cityLat = data.coord.lat;
+        const cityLon = data.coord.lon;
+        weatherCondition(cityLat, cityLon);
+    })
+    .catch(function (error) {
+        console.error('error featching weather data:', error);
     });
 };
 
 sumbitButton.addEventListener("click", getCoordinates);
+
+});
