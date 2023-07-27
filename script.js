@@ -1,9 +1,9 @@
 document.addEventListener("DOMContentLoaded", function () {
     const apiKey = "9968025b614fb3b8cb40954de8d356b1";
-
+console.log("API key:", apiKey);
     // Global Variables
     var sumbitButton = document.getElementById('sumbitBtn');
-    console.log("Button Element:", document.getElementById('submitBtn'));
+    // console.log("Button Element:", document.getElementById('submitBtn'));
     let currentCondition;
     let cityName;
     let currentIcon;
@@ -13,11 +13,14 @@ document.addEventListener("DOMContentLoaded", function () {
     let currentHumidity;
     let currentTemp;
 
+    //container for search history
+    const searchHistoryContainer = document.querySelector('#searchHisContainer');
+    let searchHistory = [];
 
-    // // function to format date
-    // const formatDate = function(date) {
-    //     return dayjs(date).format("MM/DD/YYYY");
-    // };
+    // function to format date
+    const formatDate = function(date) {
+        return dayjs(date).format("MM/DD/YYYY");
+    };
 
 
     // function to get weather by city
@@ -28,10 +31,23 @@ document.addEventListener("DOMContentLoaded", function () {
                 return response.json();
             })
             .then(function (data) {
+                //process data
                 console.log(data);
                 console.log(data.coord.lat, data.coord.lon);
                 const cityLat = data.coord.lat;
                 const cityLon = data.coord.lon;
+
+                const searchHistoryBtn = document.createElement('button');
+                searchHistoryBtn.textContent = searchCities;
+                searchHistoryBtn.addEventListener('click', function () {
+                    weatherCondition(cityLat, cityLon);
+                });
+                searchHistoryContainer.appendChild(searchHistoryBtn);
+
+
+                // add searched city to search history
+                searchHistory.push(searchCities);
+
                 weatherCondition(cityLat, cityLon);
             })
             .catch(function (error) {
@@ -46,28 +62,32 @@ document.addEventListener("DOMContentLoaded", function () {
             })
             .then(function (data) {
                 console.log(data);
-                currentIcon = data.list[0].weather[0].icon;
+                // currentIcon = data.list[0].weather[0].icon;
                 currentIconUrl = `http://openweathermap.org/img/wn/${currentIcon}.png`
                 currentDate = dayjs().format("MM/DD/YYYY");
-                cityName = data.city.name;
-                currentTemp = data.list[0].main.temp;
-                currentCondition = data.list[0].weather[0].description;
-                currentWindSpeed = data.list[0].wind.speed;
-                currentHumidity = data.list[0].main.humidity;
-                console.log(data.list[0].main.humidity);
-                displayWeather(cityName, currentTemp, currentWindSpeed, currentHumidity);
+                cityName = data.name;
+                currentTemp = data.main.temp;
+                currentCondition = data.weather[0].description;
+                currentWindSpeed = data.wind.speed;
+                currentHumidity = data.main.humidity;
+                console.log(data.main.humidity);
+                displayWeather(cityName, currentTemp, currentWindSpeed, currentHumidity, currentIconUrl, currentCondition, currentDate);
+            })
+            .catch(function (error) {
+                console.error('error fetching weather data:', error);
             });
     };
 
+
     const displayWeather = function (cityName, currentTemp, currentWindSpeed, currentHumidity) {
-        document.querySelector('currentIcon').setAttribute('src', currentIconUrl);
+        document.querySelector('#currentIcon').setAttribute('src', currentIconUrl);
         document.getElementById('currentIcon').setAttribute('style', 'width: 10rem; height: 10rem')
-        document.querySelector('cityName').textContent = "Current City:" + cityName;
-        document.querySelector('currentDate').textContent = "Today's Date:" + currentDate;
-        document.querySelector('currentCondition').textContent = "Current Condition:" + currentCondition;
-        document.querySelector('currentTemp').textContent = "The Current Temp Is:" + currentTemp + "Degrees";
-        document.querySelector('currentWind').textContent = "Wind Speed Is:" + currentWindSpeed + "MPH";
-        document.querySelector('currentHumidity').textContent = "Humidity: " + currentHumidity + "percent";
+        document.querySelector('#cityName').textContent = "Current City: " + cityName;
+        document.querySelector('#currentDate').textContent = "Today's Date: " + currentDate;
+        document.querySelector('#currentCondition').textContent = "Current Condition: " + currentCondition;
+        document.querySelector('#currentTemp').textContent = "Current Temp: " + currentTemp + " Degrees";
+        document.querySelector('#currentWind').textContent = "Wind: " + currentWindSpeed + "MPH";
+        document.querySelector('#currentHumidity').textContent = "Humidity " + currentHumidity + "%";
     }
 
     sumbitButton.addEventListener("click", function () {
