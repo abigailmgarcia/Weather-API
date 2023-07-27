@@ -24,6 +24,16 @@ const getCoordinates = function() {
     });
 };
 
+    const weatherCondition = function(cityLat, cityLon) {
+        fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${cityLat}&lon=${cityLon}&appid=${apiKey}&units=imperial`)
+        .then(function (response) {
+            return response.json();
+        })
+        .then(function (data) {
+            console.log(data);
+        })
+    }
+
 sumbitButton.addEventListener("click", getCoordinates);
 
 });
