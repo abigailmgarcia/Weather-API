@@ -89,7 +89,7 @@ console.log("API key:", apiKey);
         document.querySelector('#currentHumidity').textContent = "Humidity " + currentHumidity + "%";
     }
 
-    sumbitButton.addEventListener("click", function () {
+    sumbitButton.addEventListener("click", function (e) {
         getCoordinates();
     });
 

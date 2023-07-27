@@ -13,7 +13,7 @@
 </head>
 
 <body>
-    <header id="header" class="container-fluid text-center align-middle fs-1 bg-primary bg-gradient">
+    <header id="header" class="container-fluid text-center align-middle fs-1 bg-primary bg-gradient fw-bolder text-white">
         Weather Dashboard
     </header>
     <div class="container text-center">
@@ -26,18 +26,18 @@
                 </div>
         </div>
     </form>
+            <button id="sumbitBtn" class="btn btn-outline-success">Search</button>
             
-            <button id="sumbitBtn" class="btn btn-outline-success" type="submit">Search</button>
               
           
             <div class="col-sm-9">
                 <div class="row">
-                  <div id="currentWeather" class="card mt-3" style="width: 18rem;">
-                    <img id="currentIcon" src="" class="card-img-top" alt="current weather image">
-                    <div class="card-body">
-                      <p id="cityName" class="card-text"></p>
+                  <div id="currentWeather" class="d-inline flex flex-row card mt-3" style="width: 18rem;">
+                    <img id="currentIcon" class="card-img-top" alt="current weather image">
+                    <div class="card-body m-4 p-0 fs-4">
+                      <p id="cityName" class="card-text fs-2 fw-bold"></p>
                       <p id="currentDate" class="card-text"></p>
-                      <p id="currentCondition" class="card-text"></p>
+                      <p id="currentCondition" class="card-text capitalize"></p>
                       <p id="currentTemp" class="card-text"></p>
                       <p id="currentHumidity" class="card-text"></p>
                       <p id="currentWind" class="card-text"></p>
