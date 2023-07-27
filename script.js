@@ -33,17 +33,16 @@ console.log("API key:", apiKey);
             .then(function (data) {
                 //process data
                 console.log(data);
-                console.log(data.coord.lat, data.coord.lon);
-                const cityLat = data.coord.lat;
-                const cityLon = data.coord.lon;
+                let cityLat = data.coord.lat;
+                let cityLon = data.coord.lon;
 
                 const searchHistoryBtn = document.createElement('button');
+                searchHistoryBtn.setAttribute('class', 'btn btn-secondary mt-3 col-12 mx-auto');
                 searchHistoryBtn.textContent = searchCities;
                 searchHistoryBtn.addEventListener('click', function () {
                     weatherCondition(cityLat, cityLon);
                 });
                 searchHistoryContainer.appendChild(searchHistoryBtn);
-
 
                 // add searched city to search history
                 searchHistory.push(searchCities);
