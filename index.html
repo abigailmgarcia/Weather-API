@@ -1,20 +1,34 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
-
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
 </head>
+
 <body>
     <form class="d-flex" role="search">
-         <input id="search-bar" type="search" placeholder="Enter City Name" class="form-control me-2" aria-label="Search">
-         
-       
+        <input id="search-bar" type="search" placeholder="Enter City Name" class="form-control me-2"
+            aria-label="Search">
     </form>
-    <button id="sumbitBtn">Sumbit</button>
-    
+    <button class="btn btn-outline-succes" id="sumbitBtn">Sumbit</button>
+    <div class="card" style="width: 18rem;">
+        <img id="currentIcon" src="" class="card-img-top" alt="current weather image">
+        <div class="card-body">
+            <p id="cityName" class="card-text"></p>
+            <p id="currentDate" class="card-text"></p>
+            <p id="currentCondition" class="card-text"></p>
+            <p id="currentTemp" class="card-text"></p>
+            <p id="currentHumidity" class="card-text"></p>
+            <p id="currentWind" class="card-text"></p>
+        </div>
+    </div>
+
     <script src="script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/dayjs@1.11.3/dayjs.min.js" integrity="sha256-iu/zLUB+QgISXBLCW/mcDi/rnf4m4uEDO0wauy76x7U=" crossorigin="anonymous"></script>
 </body>
+
 </html>
