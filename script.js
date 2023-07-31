@@ -36,6 +36,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // function to get weather by city
     const getCoordinates = function (search) {
+        // let searchCities = document.querySelector('#search-bar').value;
         // search = searchHistoryBtn.textContent;
         console.log(search);
         const searchCities = document.querySelector('#search-bar').value;
@@ -83,6 +84,7 @@ document.addEventListener("DOMContentLoaded", function () {
         forecastContainer.innerHTML = '';
 
         fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${cityLat}&lon=${cityLon}&appid=${apiKey}&units=imperial`)
+        // fetch(`https://api.openweathermap.org/data/2.5/forecast?lat=${cityLat}&lon=${cityLon}&appid=${apiKey}&units=imperial`)
             .then(function (response) {
                 return response.json();
             })
@@ -100,9 +102,10 @@ document.addEventListener("DOMContentLoaded", function () {
                 console.log(data.main.humidity);
 
                 displayWeather(cityName, currentTemp, currentWindSpeed, currentHumidity, currentIconUrl, currentCondition, currentDate);
+            
 
-                //displays 5 day weather 
-                for (let i = 1; i <= 40; i += 8) {
+                //display 24 day weather 
+                for (let i = 0; i <= 5; i ++) {
                     let forecastDate = dayjs(data.list[i].dt_txt).format("MM/DD/YYYY");
                     let forecastCondition = data.list[i].weather[0].description;
                     let forecastTemp = data.list[i].main.temp;
@@ -110,7 +113,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     let forecastHumidity = data.list[i].main.humidity;
 
                     //icon library that displays icon
-                    let forecastIcon = data.list[i].weather[0].icon;
+                    let forecastIcon = data.list[i * 8].weather[0].icon;
                     let forecastIconUrl = `http://openweathermap.org/img/wn/${forecastIcon}.png`;
 
                     //html elements to display
@@ -158,7 +161,7 @@ document.addEventListener("DOMContentLoaded", function () {
     };
 
 
-    const displayWeather = function (cityName, currentTemp, currentWindSpeed, currentHumidity) {
+    const displayWeather = function (cityName, currentTemp, currentWindSpeed, currentHumidity, currentIconUrl, currentCondition, currentDate) {
         document.querySelector('#currentIcon').setAttribute('src', currentIconUrl);
         document.getElementById('currentIcon').setAttribute('style', 'width: 10rem; height: 10rem')
         document.querySelector('#cityName').textContent = "Current City: " + cityName;
